@@ -1,7 +1,9 @@
 package com.plaps.androidcleancode.networking;
 
 
-import com.plaps.androidcleancode.models.CityListResponse;
+import com.plaps.androidcleancode.models.Person;
+
+import java.util.List;
 
 import retrofit2.http.GET;
 import rx.Observable;
@@ -11,7 +13,7 @@ import rx.Observable;
  */
 public interface NetworkService {
 
-    @GET("v1/city")
-    Observable<CityListResponse> getCityList();
+    @GET("test")
+    Observable<List<Person>> getCityList();
 
 }

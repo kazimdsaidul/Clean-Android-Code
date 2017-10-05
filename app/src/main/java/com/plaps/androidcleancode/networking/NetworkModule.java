@@ -1,7 +1,5 @@
 package com.plaps.androidcleancode.networking;
 
-import com.plaps.androidcleancode.BuildConfig;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -49,7 +47,6 @@ public class NetworkModule {
                         Request request = original.newBuilder()
                                 .header("Content-Type", "application/json")
                                 .removeHeader("Pragma")
-                                .header("Cache-Control", String.format("max-age=%d", BuildConfig.CACHETIME))
                                 .build();
 
                         okhttp3.Response response = chain.proceed(request);
@@ -64,7 +61,7 @@ public class NetworkModule {
 
 
         return new Retrofit.Builder()
-                .baseUrl(BuildConfig.BASEURL)
+                .baseUrl(AllUrl.base)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())

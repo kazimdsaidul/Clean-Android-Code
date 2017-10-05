@@ -5,17 +5,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.plaps.androidcleancode.BaseApp;
 import com.plaps.androidcleancode.R;
-import com.plaps.androidcleancode.models.CityListData;
-import com.plaps.androidcleancode.models.CityListResponse;
+import com.plaps.androidcleancode.models.Person;
 import com.plaps.androidcleancode.networking.Service;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends BaseApp implements HomeView {
+public class HomeActivity extends BaseApp implements HomeView, HomeAdapter.OnItemClickListener {
 
     private RecyclerView list;
     @Inject
@@ -60,18 +60,17 @@ public class HomeActivity extends BaseApp implements HomeView {
     }
 
     @Override
-    public void getityListSuccess(CityListResponse cityListResponse) {
+    public void getityListSuccess(List<Person> personList) {
 
-        HomeAdapter adapter = new HomeAdapter(getApplicationContext(), cityListResponse.getData(),
-                new HomeAdapter.OnItemClickListener() {
-                    @Override
-                    public void onClick(CityListData Item) {
-                        Toast.makeText(getApplicationContext(), Item.getName(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+        HomeAdapter adapter = new HomeAdapter(getApplicationContext(), personList, this);
+
 
         list.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onClick(Person Item) {
 
     }
 }

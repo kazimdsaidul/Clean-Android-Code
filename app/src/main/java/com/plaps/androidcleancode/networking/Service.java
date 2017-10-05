@@ -1,7 +1,9 @@
 package com.plaps.androidcleancode.networking;
 
 
-import com.plaps.androidcleancode.models.CityListResponse;
+import com.plaps.androidcleancode.models.Person;
+
+import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -25,13 +27,13 @@ public class Service {
         return networkService.getCityList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext(new Func1<Throwable, Observable<? extends CityListResponse>>() {
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends List<Person>>>() {
                     @Override
-                    public Observable<? extends CityListResponse> call(Throwable throwable) {
+                    public Observable<? extends List<Person>> call(Throwable throwable) {
                         return Observable.error(throwable);
                     }
                 })
-                .subscribe(new Subscriber<CityListResponse>() {
+                .subscribe(new Subscriber<List<Person>>() {
                     @Override
                     public void onCompleted() {
 
@@ -39,20 +41,19 @@ public class Service {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onError(new NetworkError(e));
 
                     }
 
                     @Override
-                    public void onNext(CityListResponse cityListResponse) {
-                        callback.onSuccess(cityListResponse);
+                    public void onNext(List<Person> persons) {
 
+                        callback.onSuccess(persons);
                     }
                 });
     }
 
     public interface GetCityListCallback{
-        void onSuccess(CityListResponse cityListResponse);
+        void onSuccess(List<Person> person);
 
         void onError(NetworkError networkError);
     }

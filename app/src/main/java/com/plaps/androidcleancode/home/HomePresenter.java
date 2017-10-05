@@ -1,8 +1,10 @@
 package com.plaps.androidcleancode.home;
 
-import com.plaps.androidcleancode.models.CityListResponse;
+import com.plaps.androidcleancode.models.Person;
 import com.plaps.androidcleancode.networking.NetworkError;
 import com.plaps.androidcleancode.networking.Service;
+
+import java.util.List;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -15,6 +17,7 @@ public class HomePresenter {
     private final HomeView view;
     private CompositeSubscription subscriptions;
 
+
     public HomePresenter(Service service, HomeView view) {
         this.service = service;
         this.view = view;
@@ -26,9 +29,9 @@ public class HomePresenter {
 
         Subscription subscription = service.getCityList(new Service.GetCityListCallback() {
             @Override
-            public void onSuccess(CityListResponse cityListResponse) {
+            public void onSuccess(List<Person> person) {
                 view.removeWait();
-                view.getityListSuccess(cityListResponse);
+                view.getityListSuccess(person);
             }
 
             @Override

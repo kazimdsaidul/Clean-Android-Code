@@ -21,9 +21,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "int", "LIMIT", "100"
-        buildConfigField "String", "BASEURL", "\"http://private-b8cf44-androidcleancode.apiary-mock.com/\""
-        buildConfigField "int", "CACHETIME", "432000" // 5days
+
     }
     buildTypes {
         release {
@@ -55,6 +53,6 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.2'
     compile 'com.google.dagger:dagger:2.2'
     provided 'javax.annotation:jsr250-api:1.0'
-
+    compile 'com.google.code.gson:gson:2.8.2'
 
 }
